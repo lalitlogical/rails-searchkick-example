@@ -9,6 +9,13 @@
       <div class="card-body">
         <h4 class="card-title"><%= @mobile_phone.name %></h4>
         <p class="card-text"><%= @mobile_phone.description %></p>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li> ₹<%= number_with_delimiter(@mobile_phone.price, :delimiter => ',') %> </li>
+          <li> <%= @mobile_phone.ram %> GB RAM </li>
+          <li> <%= @mobile_phone.screen_size %> inch Display </li>
+          <li> <%= @mobile_phone.primary_camera %> Rear Camera </li>
+          <li> <%= @mobile_phone.battery %> mAh Battery </li>
+        </ul>
       </div>
     </div>
   </div>
