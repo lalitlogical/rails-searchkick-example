@@ -27,14 +27,16 @@
     <div class="row">
       <% @mobile_phones.each do |mobile_phone| %>
         <div class="col-sm-6 col-md-4">
+          <%= link_to mobile_phone do %>
           <div class="card" style="margin-bottom: 20px;">
             <img class="card-img-top" src="<%= mobile_phone.avatar %>">
             <div class="card-body">
               <h4 class="card-title"><%= mobile_phone.name.truncate(20) %></h4>
               <p class="card-text"><%= mobile_phone.description.truncate(75) %></p>
-              <%= link_to 'View', mobile_phone, class: "btn btn-primary" %>
+              <%#= link_to 'View', mobile_phone, class: "btn btn-primary" %>
             </div>
           </div>
+          <% end %>
         </div>
       <% end %>
     </div>
