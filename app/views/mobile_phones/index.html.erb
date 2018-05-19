@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-sm-3">
+    <div class="row">
+      <% @categories.each do |category_name, options| %>
+        <div class="card" style="margin-bottom: 20px; width: 100%;">
+          <h5 class="card-header"><%= category_name.humanize %></h5>
+          <div class="card-body">
+            <ul>
+              <% options.each do |option| %>
+                <li> <%= link_to prepare_name(category_name, option), prepare_url(category_name, option) %> </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <div class="card" style="margin-bottom: 20px;">
+      <h5 class="card-header" style="<%='border-bottom: 0;' unless query_string? %>"><%= @mobile_phones.total_count %> Mobile Phones </h5>
+      <% if query_string? %>
+        <div class="card-body">
+          <%= prepare_query_tag %>
+        </div>
+      <% end %>
+    </div>
+    <div class="row">
+      <% @mobile_phones.each do |mobile_phone| %>
+        <div class="col-sm-6 col-md-4">
+          <div class="card" style="margin-bottom: 20px;">
+            <img class="card-img-top" src="<%= mobile_phone.avatar %>">
+            <div class="card-body">
+              <h4 class="card-title"><%= mobile_phone.name.truncate(20) %></h4>
+              <p class="card-text"><%= mobile_phone.description.truncate(75) %></p>
+              <%= link_to 'View', mobile_phone, class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <center>
+      <%= paginate @mobile_phones, theme: 'twitter-bootstrap-4' %>
+    </center>
+  </div>
+</div>

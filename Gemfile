@@ -63,3 +63,6 @@ gem 'rails_admin_rollincode', '~> 1.0'
 gem 'friendly_id', '~> 5.2', '>= 5.2.4'
 
 gem 'searchkick', '~> 3.1'
+gem 'faker'
+gem 'kaminari'
+gem 'bootstrap4-kaminari-views'

@@ -49,6 +49,9 @@ GEM
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
+    bootstrap4-kaminari-views (1.0.0)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
     builder (3.2.3)
     byebug (10.0.2)
     capybara (2.18.0)
@@ -95,6 +98,8 @@ GEM
       multi_json
     erubi (1.7.1)
     execjs (2.7.0)
+    faker (1.8.7)
+      i18n (>= 0.7)
     faraday (0.15.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.23)
@@ -272,14 +277,17 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap (~> 4.1.1)
+  bootstrap4-kaminari-views
   byebug
   capybara (~> 2.13)
   ckeditor
   coffee-rails (~> 4.2)
   devise (~> 4.4, >= 4.4.3)
   dotenv-rails
+  faker
   friendly_id (~> 5.2, >= 5.2.4)
   jbuilder (~> 2.5)
+  kaminari
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
   puma (~> 3.7)

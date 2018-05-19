@@ -1,0 +1,17 @@
+// Place all the styles related to the MobilePhones controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.card-body a ~ a {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.card-body a:first-child {
+  margin-bottom: 10px;
+}
+
+.card-body a > span {
+  margin-left: 10px;
+}

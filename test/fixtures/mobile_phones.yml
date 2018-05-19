@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  brand: MyString
+  price: 1
+  ram: 1
+  screen_size: 1.5
+  sim_type: MyString
+  primary_camera: 1.5
+  secondary_camera: 1.5
+  battery: 1
+
+two:
+  name: MyString
+  description: MyText
+  brand: MyString
+  price: 1
+  ram: 1
+  screen_size: 1.5
+  sim_type: MyString
+  primary_camera: 1.5
+  secondary_camera: 1.5
+  battery: 1
