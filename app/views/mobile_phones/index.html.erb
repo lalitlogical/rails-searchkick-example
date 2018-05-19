@@ -5,11 +5,17 @@
         <div class="card" style="margin-bottom: 20px; width: 100%;">
           <h5 class="card-header"><%= category_name.humanize %></h5>
           <div class="card-body">
-            <ul>
-              <% options.each do |option| %>
-                <li> <%= link_to prepare_name(category_name, option), prepare_url(category_name, option) %> </li>
-              <% end %>
-            </ul>
+            <% options.each do |option| %>
+              <div class="form-check">
+                <% checked = is_checked(category_name, option) %>
+                <%= link_to prepare_url(category_name, option, checked.present?) do %>
+                  <input class="form-check-input" type="checkbox" <%= checked %> value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">
+                    <%= prepare_name(category_name, option) %>
+                  </label>
+                <% end %>
+              </div>
+            <% end %>
           </div>
         </div>
       <% end %>

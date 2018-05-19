@@ -9,7 +9,7 @@ class MobilePhone < ApplicationRecord
 
     query = {}
     [:brand, :ram, :screen_size, :sim_type, :primary_camera, :secondary_camera].each do |key|
-      query[key] = params[key] if params[key].present?
+      query[key] = params[key].split(',') if params[key].present?
     end
 
     return self.search search_text,
