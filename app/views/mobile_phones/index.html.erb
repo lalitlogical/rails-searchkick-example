@@ -1,10 +1,23 @@
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">Rails & Searchkick Example</h1>
+    <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+    <center style="margin: auto; width: 50%;">
+      <form action="<%= prepare_url("search", { "key": params[:search] }) %>" class="form-inline my-2 my-lg-0">
+        <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value="<%= params[:search] %>">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </center>
+  </div>
+</section>
 <div class="row">
   <div class="col-sm-3">
-    <div class="row">
+    <div class="row" style="margin: 0;">
       <% @categories.each do |category_name, options| %>
-        <div class="card" style="margin-bottom: 20px; width: 100%;">
-          <h5 class="card-header"><%= category_name.humanize %></h5>
+        <div class="card mb-4 box-shadow" style="width: 100%;">
+          <!-- <h5 class="card-header"><%= category_name.humanize %></h5> -->
           <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted"><%= category_name.humanize %></h6>
             <% options.each do |option| %>
               <div class="form-check">
                 <% checked = is_checked(category_name, option) %>
@@ -34,7 +47,7 @@
       <% @mobile_phones.each do |mobile_phone| %>
         <div class="col-sm-6 col-md-4">
           <%= link_to mobile_phone, style: "text-decoration: none;" do %>
-          <div class="card" style="margin-bottom: 20px;">
+          <div class="card mb-4 box-shadow">
             <img class="card-img-top" src="<%= mobile_phone.avatar %>">
             <div class="card-body">
               <h5 class="card-title" style="color: #000;"><%= mobile_phone.name.truncate(20) %></h5>
@@ -52,7 +65,7 @@
       <% end %>
     </div>
 
-    <center>
+    <center style="margin: auto; width: 50%;">
       <%= paginate @mobile_phones, theme: 'twitter-bootstrap-4' %>
     </center>
   </div>
