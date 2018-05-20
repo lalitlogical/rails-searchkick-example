@@ -5,7 +5,8 @@ class MobilePhone < ApplicationRecord
   searchkick word_start: [:name, :brand, :description], suggest: [:name], highlight: [:name]
 
   def highlighted_value_of key
-    try(:search_highlights).try(:[], key).try(:html_safe) || send(key)
+    text = try(:search_highlights).try(:[], key) || send(key)
+    text.gsub(/15.*/,'').html_safe
   end
 
   def self._search params
