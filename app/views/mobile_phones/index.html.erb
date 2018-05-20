@@ -1,11 +1,10 @@
-<section class="jumbotron text-center">
+<section class="jumbotron text-center" style="padding: 2rem 1rem;">
   <div class="container">
     <h1 class="jumbotron-heading">Rails & Searchkick Example</h1>
     <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
-    <center style="margin: auto; width: 50%;">
-      <form action="<%= prepare_url("search", { "key": params[:search] }) %>" class="form-inline my-2 my-lg-0">
-        <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" value="<%= params[:search] %>">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <center style="margin: auto; width: 75%;">
+      <form action="<%= prepare_url("search", { "key": params[:search] }) %>" class="form-inline search-form" style="width: 422px;">
+        <input id="search" name="search" style="width: 422px;" class="form-control" type="search" placeholder="Search" aria-label="Search" value="<%= params[:search] %>">
       </form>
     </center>
   </div>
@@ -15,7 +14,6 @@
     <div class="row" style="margin: 0;">
       <% @categories.each do |category_name, options| %>
         <div class="card mb-4 box-shadow" style="width: 100%;">
-          <!-- <h5 class="card-header"><%= category_name.humanize %></h5> -->
           <div class="card-body">
             <h6 class="card-subtitle mb-2 text-muted"><%= category_name.humanize %></h6>
             <% options.each do |option| %>
@@ -35,7 +33,7 @@
     </div>
   </div>
   <div class="col-sm-9">
-    <div class="card" style="margin-bottom: 20px;">
+    <div class="card mb-4">
       <h5 class="card-header" style="<%='border-bottom: 0;' unless query_string? %>"><%= @mobile_phones.total_count %> Mobile Phones </h5>
       <% if query_string? %>
         <div class="card-body">
@@ -43,6 +41,14 @@
         </div>
       <% end %>
     </div>
+    <% if @suggestions.present? %>
+    <div class="card mb-4">
+      <h5 class="card-header"> Suggestions </h5>
+      <div class="card-body">
+        <%= prepare_query_tag %>
+      </div>
+    </div>
+    <% end %>
     <div class="row">
       <% @mobile_phones.each do |mobile_phone| %>
         <div class="col-sm-6 col-md-4">
@@ -50,7 +56,7 @@
           <div class="card mb-4 box-shadow">
             <img class="card-img-top" src="<%= mobile_phone.avatar %>">
             <div class="card-body">
-              <h5 class="card-title" style="color: #000;"><%= mobile_phone.name.truncate(20) %></h5>
+              <h5 class="card-title" style="color: #000;"><%= mobile_phone.highlighted_value_of(:name) %></h5>
               <ul style="list-style: none; padding: 0; margin: 0;">
                 <li> ₹<%= number_with_delimiter(mobile_phone.price, :delimiter => ',') %> </li>
                 <li> <%= mobile_phone.ram %> GB RAM </li>
@@ -70,3 +76,22 @@
     </center>
   </div>
 </div>
+
+
+<script>
+  var mobile_phones = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/mobile_phones/autocomplete?query=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+  $('#search').typeahead(null, {
+    source: mobile_phones
+  });
+
+  $('#search').on('typeahead:selected', function(evt, item) {
+    $(".search-form").submit();
+  })
+</script>

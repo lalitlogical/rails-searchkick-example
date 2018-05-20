@@ -6,6 +6,7 @@ class MobilePhonesController < ApplicationController
   # GET /mobile_phones.json
   def index
     @mobile_phones = MobilePhone._search(params)
+    @suggestions = @mobile_phones.suggestions
     @categories = {}
     @mobile_phones.aggs.keys.sort.each do |category|
       @categories[category] = @mobile_phones.aggs[category]["buckets"].sort_by{ |e| e["key"] }
@@ -15,6 +16,10 @@ class MobilePhonesController < ApplicationController
   # GET /mobile_phones/1
   # GET /mobile_phones/1.json
   def show
+  end
+
+  def autocomplete
+    render json: MobilePhone.autocomplete(params)
   end
 
   private

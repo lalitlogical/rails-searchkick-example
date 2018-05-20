@@ -66,3 +66,6 @@ gem 'searchkick', '~> 3.1'
 gem 'faker'
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
+
+gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+gem 'twitter-typeahead-rails'

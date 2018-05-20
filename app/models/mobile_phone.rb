@@ -2,7 +2,11 @@ class MobilePhone < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  searchkick word_start: [:name, :brand, :description]
+  searchkick word_start: [:name, :brand, :description], suggest: [:name], highlight: [:name]
+
+  def highlighted_value_of key
+    try(:search_highlights).try(:[], key).try(:html_safe) || send(key)
+  end
 
   def self._search params
     search_text = params[:search].present? ? params[:search] : '*'
@@ -17,7 +21,18 @@ class MobilePhone < ApplicationRecord
       order: {_score: :desc},
       where: query,
       limit: 12, offset: params[:page],
+      suggest: true,
+      highlight: true,
       aggs: [:brand, :ram, :screen_size, :sim_type, :primary_camera, :secondary_camera]
+  end
 
+  def self.autocomplete params
+    return self.search(params[:query], {
+      fields: ["name^5", "description"],
+      match: :word_start,
+      limit: 10,
+      load: false,
+      misspellings: {below: 5}
+    }).map(&:name)
   end
 end
