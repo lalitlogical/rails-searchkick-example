@@ -6,12 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-MobilePhone.delete_all
+# MobilePhone.delete_all
 
 brand = ["Samsung", "Panasonic", "Micromax", "Nokia", "Sony", "Lava", "Adcom", "Blackbear", "BlackBear", "BlackZone", "Blackzone", "BQ", "BSNL", "Callbar", "Celkon", "Champion", "Darago", "Datawind", "Forme", "GAMMA", "Gfive", "Gionee", "Good One", "Haier", "Heemax", "HPL", "HTC", "Huawei", "Iball", "Intex", "Ismart", "Itel", "iVooMi", "Jinga", "Jio", "JIVI", "Kara", "Karbonn", "Kechaoda", "Kimfly", "Lemon", "Lenovo", "Lychee", "LYCHEE", "M-Horse", "MAXX", "Mtech", "nuvo", "Onida", "Peace", "Philips", "RAGE", "Reach", "Reliance", "Rio", "Sansui", "Spice", "Subway", "Swipe", "T-Max", "Tecoze", "Trio", "TYMES", "UI Phones", "Videocon", "Vox", "Wham", "Whitecherry", "XCCESS", "Xolo", "Yxtel", "Zen", "Ziox", "ZOPO", "ZTE", "Acer", "AIEK", "AIRI Mobile", "AK", "Alcatel", "Animate", "Apple", "Asus", "Billion", "Binatone", "Blackberry", "BLU", "Callmate", "Camerii", "CAT", "Cheers", "Colors", "Comio", "Coolpad", "Diamond", "Doel", "Fox", "Gigaset", "Google", "GS", "Hi Tech", "Honor", "HP", "Infinix", "InFocus", "Kenxinda", "Kodak", "LG", "LYF", "Mi", "Microsoft", "Mido", "MOBONE", "Motorola", "Nubia", "Okwu", "OnePlus", "OPPO", "Smartron", "TCL", "Tecno", "TP-Link", "Uniscope", "VIVO", "Voicair", "Voto", "XOLO", "Yu"]
 
 mobile_phones = []
-100000.times do |i|
+1000000.times do |i|
   sample_brand = brand.sample
   name = "#{sample_brand} #{Faker::App.name} #{Faker::Movie.quote} #{Faker::App.version} #{Time.now.to_i}"
   mobile_phones << MobilePhone.new(
@@ -30,7 +30,10 @@ mobile_phones = []
   )
 
   if mobile_phones.length >= 1000
-    MobilePhone.import mobile_phones
+    begin
+      MobilePhone.import mobile_phones
+    rescue StandardError => e
+    end
     mobile_phones = []
   end
 end
