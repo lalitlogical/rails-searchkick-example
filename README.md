@@ -1,24 +1,11 @@
-# README
+# Rails Searchkick (elasticsearch) Example
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This the example for rails & elasticsearch (with help of searchkick)
 
-Things you may want to cover:
+## Service Requirements
+1. elasticsearch
+2. postgresql
 
-* Ruby version
+Setup the project & run the `rake db:seed` command to generate the fake data to view on homepage.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+That's it :)
