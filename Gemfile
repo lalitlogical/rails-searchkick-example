@@ -69,3 +69,5 @@ gem 'bootstrap4-kaminari-views'
 
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'twitter-typeahead-rails'
+
+gem 'activerecord-import', '~> 0.23.0'
