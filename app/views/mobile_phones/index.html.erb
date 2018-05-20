@@ -1,3 +1,9 @@
+<script>
+  placeholder = function(image) {
+    image.src = "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1637e4fce09%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1637e4fce09%22%3E%3Crect%20width%3D%22348%22%20height%3D%22225%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22116.234375%22%20y%3D%22120.3%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+  }
+</script>
+
 <section class="jumbotron text-center" style="padding: 2rem 1rem;">
   <div class="container">
     <h1 class="jumbotron-heading">Rails & Searchkick Example</h1>
@@ -33,13 +39,11 @@
     </div>
   </div>
   <div class="col-sm-9">
-    <div class="card mb-4">
-      <h5 class="card-header" style="<%='border-bottom: 0;' unless query_string? %>"><%= @mobile_phones.total_count %> Mobile Phones </h5>
-      <% if query_string? %>
-        <div class="card-body">
-          <%= prepare_query_tag %>
-        </div>
-      <% end %>
+    <div class="card mb-4 box-shadow">
+      <div class="card-body" style="padding-bottom: 10px;">
+        <h5 class="card-title" style="color: #000;"><%= @mobile_phones.total_count %> Mobile Phones</h5>
+        <%= prepare_query_tag if query_string? %>
+      </div>
     </div>
     <% if @suggestions.present? %>
     <div class="card mb-4">
@@ -54,7 +58,7 @@
         <div class="col-sm-6 col-md-4">
           <%= link_to mobile_phone, style: "text-decoration: none;" do %>
           <div class="card mb-4 box-shadow">
-            <img class="card-img-top" src="<%= mobile_phone.avatar %>">
+            <img class="card-img-top" src="<%= mobile_phone.avatar %>" onError="placeholder(this)">
             <div class="card-body">
               <h5 class="card-title" style="color: #000;"><%= mobile_phone.highlighted_value_of(:name) %></h5>
               <ul style="list-style: none; padding: 0; margin: 0;">

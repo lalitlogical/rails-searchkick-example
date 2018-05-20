@@ -2,14 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
-.card-body a ~ a {
-  margin-left: 10px;
+.card-body a {
   margin-bottom: 10px;
 }
 
-.card-body a:first-child {
-  margin-bottom: 10px;
+.card-body a ~ a {
+  margin-left: 10px;
 }
 
 .card-body a > span {
