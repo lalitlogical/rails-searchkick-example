@@ -59,4 +59,12 @@ module MobilePhonesHelper
     end
     links.join.html_safe
   end
+
+  def prepare_suggestion_tag
+    links = []
+    @suggestions.each do |s|
+      links << link_to(s, "?search=#{s}", class: 'btn btn-primary')
+    end
+    links.join.html_safe
+  end
 end

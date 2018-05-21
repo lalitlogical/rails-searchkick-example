@@ -24,6 +24,7 @@ class MobilePhone < ApplicationRecord
       limit: 12, offset: params[:page],
       suggest: true,
       highlight: true,
+      misspellings: { below: 5 },
       aggs: [:brand, :ram, :screen_size, :sim_type, :primary_camera, :secondary_camera]
   end
 
