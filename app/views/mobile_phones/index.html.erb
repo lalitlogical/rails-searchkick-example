@@ -41,7 +41,7 @@
   <div class="col-sm-9">
     <div class="card mb-4 box-shadow">
       <div class="card-body" style="padding-bottom: 10px;">
-        <h5 class="card-title" style="color: #000;"><%= @mobile_phones.total_count %> Mobile Phones</h5>
+        <h5 class="card-title" style="color: #000;"><%= number_to_human(@mobile_phones.total_count, :format => '%n%u', :units => { :thousand => 'K', :million => 'M', :billion => 'B' }) %> Mobile Phones</h5>
         <%= prepare_query_tag if query_string? %>
       </div>
     </div>
