@@ -1,6 +1,6 @@
 # Rails Searchkick (elasticsearch) Example
 
-![Alt text](/home/lalit/Pictures/Screenshot from 2018-07-28 15-28-23.png?raw=true "SearchKick")
+![Alt text](https://drive.google.com/file/d/1NyrvRbI_OO6F2t-WUMal6aYwAsyv6eFc/view)
 
 This the example for rails & elasticsearch (with help of searchkick)
 
