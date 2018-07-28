@@ -1,5 +1,7 @@
 # Rails Searchkick (elasticsearch) Example
 
+![Alt text](/home/lalit/Pictures/Screenshot from 2018-07-28 15-28-23.png?raw=true "SearchKick")
+
 This the example for rails & elasticsearch (with help of searchkick)
 
 ## Service Requirements
