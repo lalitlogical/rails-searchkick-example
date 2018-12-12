@@ -1,5 +1,7 @@
 # Rails Searchkick (elasticsearch) Example
 
+![Alt text](https://lh4.googleusercontent.com/VYUTvjOWHMGZjgzBBk9NIXmmvGSAXBZmOW1eXms7lve88tZbozk_KY22eDXAgLKYnPvqqdT_BGLrAg=w1535-h810-rw)
+
 This the example for rails & elasticsearch (with help of searchkick)
 
 ## Service Requirements
