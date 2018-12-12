@@ -41,36 +41,54 @@
   <div class="col-sm-9">
     <div class="card mb-4 box-shadow">
       <div class="card-body" style="padding-bottom: 10px;">
-        <h5 class="card-title" style="color: #000;"><%= number_to_human(@mobile_phones.total_count, :format => '%n%u', :units => { :thousand => 'K', :million => 'M', :billion => 'B' }) %> Mobile Phones</h5>
+        <h5 class="card-title" style="color: #000;">
+          Mobiles (Showing <%= ((@mobile_phones.current_page - 1) * @mobile_phones.per_page) + 1 %> – <%= (@mobile_phones.current_page * @mobile_phones.per_page) - 1 %> products of <%= number_to_human_for(@mobile_phones.total_count) %> products)
+        </h5>
         <%= prepare_query_tag if query_string? %>
       </div>
     </div>
+
     <% if @suggestions.present? %>
     <div class="card mb-4">
-      <h5 class="card-header"> Suggestions </h5>
       <div class="card-body">
+        <p> Suggestions </p>
         <%= prepare_suggestion_tag %>
       </div>
     </div>
     <% end %>
-    <div class="row">
-      <% @mobile_phones.each do |mobile_phone| %>
-        <div class="col-sm-6 col-md-4">
-          <%= link_to mobile_phone, style: "text-decoration: none;" do %>
-          <div class="card mb-4 box-shadow">
-            <img class="card-img-top" src="<%= mobile_phone.avatar %>" onError="placeholder(this)">
-            <div class="card-body">
-              <h5 class="card-title" style="color: #000;"><%= mobile_phone.highlighted_value_of(:name) %></h5>
-              <ul style="list-style: none; padding: 0; margin: 0;">
-                <li> ₹<%= number_with_delimiter(mobile_phone.price, :delimiter => ',') %> </li>
-                <li> <%= mobile_phone.ram %> GB RAM </li>
-                <li> <%= mobile_phone.screen_size %> inch Display </li>
-                <li> <%= mobile_phone.primary_camera %> Rear Camera </li>
-                <li> <%= mobile_phone.battery %> mAh Battery </li>
-              </ul>
+
+    <ul class="nav nav-tabs">
+      <% sorting_tabs.each do |key, value| %>
+      <li class="nav-item">
+        <a class="nav-link <%='active' if (params[:sorting] == value) or (params[:sorting].blank? && value == '_score') %>" href="<%= prepare_url("sorting", { "value": value }) %>"><%= key %></a>
+      </li>
+      <% end %>
+    </ul>
+
+    <div class="row" style="margin-top: 25px;">
+      <% if @mobile_phones.present? %>
+        <% @mobile_phones.each do |mobile_phone| %>
+          <div class="col-sm-6 col-md-4">
+            <%= link_to mobile_phone, style: "text-decoration: none;" do %>
+            <div class="card mb-4 box-shadow">
+              <img class="card-img-top" src="<%= mobile_phone.avatar %>" onError="placeholder(this)">
+              <div class="card-body">
+                <h5 class="card-title" style="color: #000;"><%= mobile_phone.highlighted_value_of(:name) %></h5>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                  <li> ₹<%= number_with_delimiter(mobile_phone.price, :delimiter => ',') %> </li>
+                  <li> <%= mobile_phone.ram %> GB RAM </li>
+                  <li> <%= mobile_phone.screen_size %> inch Display </li>
+                  <li> <%= mobile_phone.primary_camera %> Rear Camera </li>
+                  <li> <%= mobile_phone.battery %> mAh Battery </li>
+                </ul>
+              </div>
             </div>
+            <% end %>
           </div>
-          <% end %>
+        <% end %>
+      <% else %>
+        <div class="col-sm-6 col-md-4">
+          No result found
         </div>
       <% end %>
     </div>

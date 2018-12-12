@@ -22,12 +22,17 @@ module MobilePhonesHelper
   def prepare_url category_name, option, checked = false
     url = request.url
     option_name = (option["key"] || option[:key]).to_s
+    value = (option["value"] || option[:value]).to_s
 
     search_string = old_search_string.split('&').delete_if { |q| q.match(category_name).present? }
     current_option = old_search_string.split('&').find { |q| q.match(category_name).present? }
 
-    values = current_option.present? ? current_option.gsub(/.*=/,'').split(',') : []
-    checked ? values.delete_if { |v| v == option_name } : (values << option_name).uniq
+    if value.blank?
+      values = current_option.present? ? current_option.gsub(/.*=/,'').split(',') : []
+      checked ? values.delete_if { |v| v == option_name } : (values << option_name).uniq
+    else
+      (values = []) << value
+    end
 
     search_string << "#{category_name}=#{values.join(',')}" if values.present?
     "#{category_name == 'search' ? '/' : ''}?#{search_string.join('&')}"
@@ -66,5 +71,18 @@ module MobilePhonesHelper
       links << link_to(s, "?search=#{s}", class: 'btn btn-primary')
     end
     links.join.html_safe
+  end
+
+  def number_to_human_for count
+    number_to_human(count, :format => '%n%u', :units => { :thousand => 'K', :million => 'M', :billion => 'B' })
+  end
+
+  def sorting_tabs
+    {
+      "Popularity": "_score",
+      "Price -- Low to High": "price_asc",
+      "Price -- High to Low": "price_desc",
+      "Newest First": "newest"
+    }
   end
 end
