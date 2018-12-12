@@ -6,10 +6,10 @@
   margin-bottom: 10px;
 }
 
-.card-body a ~ a {
-  margin-left: 10px;
+.card-body a:hover {
+  text-decoration: line-through;
 }
 
-.card-body a > span {
+.card-body a ~ a {
   margin-left: 10px;
 }

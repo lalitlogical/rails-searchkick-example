@@ -58,9 +58,9 @@ module MobilePhonesHelper
       category_name = key_value.first
       # value = key_value.last
       # (#{value.humanize})
-      link_text = "#{category_name.humanize} #{close_btn}".html_safe
+      link_text = "#{close_btn} #{category_name.humanize}".html_safe
       query = search_strings.reject { |q| q.match(category_name).present? }
-      links << link_to(link_text, "?#{query.join('&')}", class: 'btn btn-primary')
+      links << link_to(link_text, "?#{query.join('&')}", class: '')
     end
     links.join.html_safe
   end
