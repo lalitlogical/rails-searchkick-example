@@ -71,3 +71,10 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'twitter-typeahead-rails'
 
 gem 'activerecord-import', '~> 0.23.0'
+gem 'rack-cors', '~> 0.4.1'
+
+gem 'grape', '~> 1.0', '>= 1.0.1'
+gem 'grape-active_model_serializers', '~> 1.5', '>= 1.5.1'
+gem 'grape-swagger', '~> 0.27.3'
+gem 'grape-swagger-rails'
+gem 'grape-rails-cache'

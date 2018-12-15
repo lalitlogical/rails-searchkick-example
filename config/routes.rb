@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-
+  mount API::Base, at: "/"
+  
   resources :mobile_phones, only: [:index, :show] do
     collection do
       get :autocomplete
