@@ -34,13 +34,13 @@ module API
               end
               # aggregation[k] = value['buckets']
             end
-            { aggregation: aggregation }
+            { aggregations: aggregation }
           end
 
           def render_collection objects, serializer, options = {}
             meta = {}
             meta.merge!(options[:extra_params]) if options[:extra_params].present?
-            meta.merge!({suggestions: suggestions}) if objects.respond_to?(:suggestions) && objects.suggestions.present?
+            meta.merge!({suggestions: objects.suggestions}) if objects.respond_to?(:suggestions) && objects.suggestions.present?
             meta.merge!(format_aggregation(objects.aggs)) if objects.respond_to?(:aggs) && objects.aggs.present?
             if objects.respond_to?(:total_count)
               meta.merge!({

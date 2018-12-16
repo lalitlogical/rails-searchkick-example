@@ -9,6 +9,12 @@ module API
           @mobile_phones = MobilePhone._search(params)
           render_collection(@mobile_phones, MobileSerializer)
         end
+
+        desc "mobiles listing"
+        get "/:id", root: "mobiles" do
+          @mobile_phone = MobilePhone.find(params[:id])
+          render_object(@mobile_phone, MobileSerializer)
+        end
       end
     end
   end
