@@ -24,17 +24,15 @@ module API
             })
           end
 
-          def format_aggregation aggregation
-            aggregation.each do |k,value|
-              value['total_count'] = value.delete("doc_count")
-              value.delete("doc_count_error_upper_bound")
-              value.delete("sum_other_doc_count")
+          def format_aggregation aggs
+            aggregations = []
+            aggs.each do |k,value|
               value['buckets'].each do |bucket|
                 bucket['count'] = bucket.delete("doc_count")
               end
-              # aggregation[k] = value['buckets']
+              aggregations << { name: k, buckets: value['buckets'] }
             end
-            { aggregations: aggregation }
+            { aggregations: aggregations }
           end
 
           def render_collection objects, serializer, options = {}
@@ -43,11 +41,12 @@ module API
             meta.merge!({suggestions: objects.suggestions}) if objects.respond_to?(:suggestions) && objects.suggestions.present?
             meta.merge!(format_aggregation(objects.aggs)) if objects.respond_to?(:aggs) && objects.aggs.present?
             if objects.respond_to?(:total_count)
-              meta.merge!({
-                total_count: objects.total_count,
-                current_page: objects.current_page,
-                next_page: objects.next_page,
-                per_page: objects.limit_value
+              meta.merge!({pagination: {
+                  total_count: objects.total_count,
+                  current_page: objects.current_page,
+                  next_page: objects.next_page,
+                  per_page: objects.limit_value
+                }
               })
             end
 
