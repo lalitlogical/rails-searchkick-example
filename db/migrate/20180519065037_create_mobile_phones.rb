@@ -11,12 +11,12 @@ class CreateMobilePhones < ActiveRecord::Migration[5.1]
       t.float :primary_camera
       t.float :secondary_camera
       t.integer :battery
-      t.string :slug, :null => false
+      t.string :slug, null: false
       t.text :avatar
 
       t.timestamps
     end
 
-    add_index :mobile_phones, :slug, :unique => true
+    add_index :mobile_phones, :slug, unique: true
   end
 end

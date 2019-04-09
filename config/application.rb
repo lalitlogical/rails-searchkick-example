@@ -19,7 +19,7 @@ module Searcher
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :options, :delete, :patch, :put]
+        resource '*', headers: :any, methods: %i[get post options delete patch put]
       end
     end
   end

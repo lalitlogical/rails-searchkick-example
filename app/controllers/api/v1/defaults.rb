@@ -4,8 +4,8 @@ module API
       extend ActiveSupport::Concern
 
       included do
-        prefix "api"
-        version "v1", using: :path
+        prefix 'api'
+        version 'v1', using: :path
         default_format :json
         format :json
 
@@ -18,43 +18,42 @@ module API
             Rails.logger
           end
 
-          def render_object object, serializer, options = {}
-            json_success_response({
+          def render_object(object, serializer, _options = {})
+            json_success_response(
               data: single_serializer.new(object, serializer: serializer)
-            })
+            )
           end
 
-          def format_aggregation aggs
+          def format_aggregation(aggs)
             aggregations = []
-            aggs.each do |k,value|
+            aggs.each do |k, value|
               value['buckets'].each do |bucket|
-                bucket['count'] = bucket.delete("doc_count")
+                bucket['count'] = bucket.delete('doc_count')
               end
               aggregations << { name: k, buckets: value['buckets'] }
             end
             { aggregations: aggregations }
           end
 
-          def render_collection objects, serializer, options = {}
+          def render_collection(objects, serializer, options = {})
             meta = {}
             meta.merge!(options[:extra_params]) if options[:extra_params].present?
-            meta.merge!({suggestions: objects.suggestions}) if objects.respond_to?(:suggestions) && objects.suggestions.present?
+            meta[:suggestions] = objects.suggestions if objects.respond_to?(:suggestions) && objects.suggestions.present?
             meta.merge!(format_aggregation(objects.aggs)) if objects.respond_to?(:aggs) && objects.aggs.present?
             if objects.respond_to?(:total_count)
-              meta.merge!({pagination: {
-                  total_count: objects.total_count,
-                  current_page: objects.current_page,
-                  next_page: objects.next_page,
-                  per_page: objects.limit_value
-                }
-              })
+              meta[:pagination] = {
+                total_count: objects.total_count,
+                current_page: objects.current_page,
+                next_page: objects.next_page,
+                per_page: objects.limit_value
+              }
             end
 
             # send data & meta
-            json_success_response({
+            json_success_response(
               data: array_serializer.new(objects, serializer: serializer),
               meta: meta
-            })
+            )
           end
 
           def array_serializer
@@ -65,11 +64,11 @@ module API
             ActiveModelSerializers::SerializableResource
           end
 
-          def json_success_response response = {}, status_code = 200
+          def json_success_response(response = {}, status_code = 200)
             { success: true, status: status_code }.merge(response)
           end
 
-          def json_error_response response = {}, status_code = (ENV['STATUS_CODE'] || 422)
+          def json_error_response(response = {}, status_code = (ENV['STATUS_CODE'] || 422))
             error!({ success: false, status: status_code }.merge(response), status_code)
           end
         end
@@ -87,8 +86,8 @@ module API
         rescue_from :all do |e|
           raise e
           json_error_response({
-            errors: ["Internal server error."]
-          }, 500)
+                                errors: ['Internal server error.']
+                              }, 500)
         end
       end
     end

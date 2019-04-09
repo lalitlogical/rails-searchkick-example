@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  mount API::Base, at: "/"
-  
-  resources :mobile_phones, only: [:index, :show] do
+  mount API::Base, at: '/'
+
+  resources :mobile_phones, only: %i[index show] do
     collection do
       get :autocomplete
     end
@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root to: "mobile_phones#index"
+  root to: 'mobile_phones#index'
 end

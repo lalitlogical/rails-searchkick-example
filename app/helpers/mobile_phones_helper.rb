@@ -1,34 +1,33 @@
 module MobilePhonesHelper
-
-  def prepare_name category_name, option
-    option_name = (option["key"] || option[:key]).to_s
+  def prepare_name(category_name, option)
+    option_name = (option['key'] || option[:key]).to_s
     t = case category_name
-    when "primary_camera", "secondary_camera"
-      "#{option_name} MP"
-    when "ram"
-      "#{option_name} GB"
-    when "screen_size"
-      "#{option_name} \""
-    else
-      option_name.to_s.humanize
+        when 'primary_camera', 'secondary_camera'
+          "#{option_name} MP"
+        when 'ram'
+          "#{option_name} GB"
+        when 'screen_size'
+          "#{option_name} \""
+        else
+          option_name.to_s.humanize
     end
-    "#{t} (#{option["doc_count"]})"
+    "#{t} (#{option['doc_count']})"
   end
 
   def old_search_string
-    @q_string ||= request.url.match(/\?/) ? request.url.split('?').last : ""
+    @q_string ||= request.url =~ /\?/ ? request.url.split('?').last : ''
   end
 
-  def prepare_url category_name, option, checked = false
+  def prepare_url(category_name, option, checked = false)
     url = request.url
-    option_name = (option["key"] || option[:key]).to_s
-    value = (option["value"] || option[:value]).to_s
+    option_name = (option['key'] || option[:key]).to_s
+    value = (option['value'] || option[:value]).to_s
 
     search_string = old_search_string.split('&').delete_if { |q| q.match(category_name).present? }
     current_option = old_search_string.split('&').find { |q| q.match(category_name).present? }
 
     if value.blank?
-      values = current_option.present? ? current_option.gsub(/.*=/,'').split(',') : []
+      values = current_option.present? ? current_option.gsub(/.*=/, '').split(',') : []
       checked ? values.delete_if { |v| v == option_name } : (values << option_name).uniq
     else
       (values = []) << value
@@ -38,8 +37,8 @@ module MobilePhonesHelper
     "#{category_name == 'search' ? '/' : ''}?#{search_string.join('&')}"
   end
 
-  def is_checked category_name, option
-    option_name = (option["key"] || option[:key]).to_s
+  def is_checked(category_name, option)
+    option_name = (option['key'] || option[:key]).to_s
     current_option ||= old_search_string.split('&').find { |q| q.match(category_name).present? }
     values = current_option.present? ? current_option.split(/=/).last.split(',') : []
     values.include?(option_name) ? 'checked' : ''
@@ -73,16 +72,16 @@ module MobilePhonesHelper
     links.join.html_safe
   end
 
-  def number_to_human_for count
-    number_to_human(count, :format => '%n%u', :units => { :thousand => 'K', :million => 'M', :billion => 'B' })
+  def number_to_human_for(count)
+    number_to_human(count, format: '%n%u', units: { thousand: 'K', million: 'M', billion: 'B' })
   end
 
   def sorting_tabs
     {
-      "Popularity": "_score",
-      "Price -- Low to High": "price_asc",
-      "Price -- High to Low": "price_desc",
-      "Newest First": "newest"
+      "Popularity": '_score',
+      "Price -- Low to High": 'price_asc',
+      "Price -- High to Low": 'price_desc',
+      "Newest First": 'newest'
     }
   end
 end
