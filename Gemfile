@@ -65,7 +65,7 @@ gem 'bootstrap4-kaminari-views'
 gem 'faker'
 gem 'kaminari'
 gem 'searchkick', '~> 3.1'
-
+gem 'elasticsearch', '~> 6.2.0'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'twitter-typeahead-rails'
 
@@ -77,3 +77,7 @@ gem 'grape-active_model_serializers', '~> 1.5', '>= 1.5.1'
 gem 'grape-rails-cache'
 gem 'grape-swagger', '~> 0.27.3'
 gem 'grape-swagger-rails'
+
+gem 'mina', require: false
+gem 'mina-puma', require: false
+gem 'mina-nginx', require: false
