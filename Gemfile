@@ -47,6 +47,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  gem 'mina', '~> 1.2', '>= 1.2.3', require: false
+  gem 'mina-puma', '~> 1.1', require: false
+  gem 'mina-nginx', '~> 0.0.3', :require => false
+  gem 'mina-dotenv', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -77,8 +82,3 @@ gem 'grape-active_model_serializers', '~> 1.5', '>= 1.5.1'
 gem 'grape-rails-cache'
 gem 'grape-swagger', '~> 0.27.3'
 gem 'grape-swagger-rails'
-
-gem 'mina', '~> 1.2', '>= 1.2.3', require: false
-gem 'mina-puma', '~> 1.1', require: false
-gem 'mina-nginx', '~> 0.0.3', :require => false
-gem 'mina-dotenv', require: false

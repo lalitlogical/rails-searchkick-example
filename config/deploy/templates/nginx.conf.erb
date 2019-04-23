@@ -1,8 +1,8 @@
 <% application = fetch :application, 'rails-searchkick-example' %>
-<% socket_path = fetch :nginx_socket_path, '/path/to/web/socket' %>
+<% socket_path = fetch :nginx_socket_path, '/tmp/sockets/puma.sock' %>
 
 upstream <%= application %> {
-  server unix://<%= socket_path %> fail_timeout=0;
+  server unix://<%= fetch :puma_socket %>;
 }
 
 server {
