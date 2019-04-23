@@ -2,6 +2,8 @@ require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'    # for rvm support. (https://rvm.io)
+require 'mina/nginx'
+require 'mina/puma'
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
@@ -24,7 +26,7 @@ set :forward_agent, true     # SSH forward_agent.
 # Shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
 # Some plugins already add folders to shared_dirs like `mina/rails` add `public/assets`, `vendor/bundle` and many more
 # run `mina -d` to see all folders and files already included in `shared_dirs` and `shared_files`
-set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
+set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml', 'tmp/pids', 'tmp/sockets')
 set :shared_dirs, fetch(:shared_dirs, []).push('public/assets')
 set :rvm_use_path, '/usr/local/rvm/scripts/rvm'
 
@@ -43,7 +45,11 @@ end
 # Put any custom commands you need to run at setup
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup do
-  # command %{rbenv install 2.3.0 --skip-existing}
+  # Puma needs a place to store its pid file and socket file.
+  command %(mkdir -p "#{fetch(:shared_path)}/tmp/sockets")
+  command %(chmod g+rx,u+rwx "#{fetch(:shared_path)}/tmp/sockets")
+  command %(mkdir -p "#{fetch(:shared_path)}/tmp/pids")
+  command %(chmod g+rx,u+rwx "#{fetch(:shared_path)}/tmp/pids")
 end
 
 desc "Deploys the current version to the server."
@@ -61,10 +67,7 @@ task :deploy do
     invoke :'deploy:cleanup'
 
     on :launch do
-      in_path(fetch(:current_path)) do
-        command %{mkdir -p tmp/}
-        command %{touch tmp/restart.txt}
-      end
+      invoke :'puma:phased_restart'
     end
   end
 

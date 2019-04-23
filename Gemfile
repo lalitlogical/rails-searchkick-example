@@ -78,6 +78,7 @@ gem 'grape-rails-cache'
 gem 'grape-swagger', '~> 0.27.3'
 gem 'grape-swagger-rails'
 
-gem 'mina', require: false
-gem 'mina-puma', require: false
-gem 'mina-nginx', require: false
+gem 'mina', '~> 1.2', '>= 1.2.3', require: false
+gem 'mina-puma', '~> 1.1', require: false
+gem 'mina-nginx', '~> 0.0.3', :require => false
+gem 'mina-dotenv', require: false
